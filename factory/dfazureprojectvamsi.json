@@ -1,0 +1,9 @@
+{
+	"name": "dfazureprojectvamsi",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "88dd1724-1823-4b8d-91a2-e6536a18b72e",
+		"tenantId": "34eb868f-54f2-4941-bce7-2211c6041a23"
+	}
+}

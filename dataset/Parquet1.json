@@ -5,11 +5,20 @@
 			"referenceName": "AzureDataLakeStorageConnection",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"table": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "Parquet",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@{dataset().table}_cdc",
+					"type": "Expression"
+				},
 				"fileSystem": {
 					"value": "Bronze",
 					"type": "Expression"

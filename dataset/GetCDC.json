@@ -5,13 +5,27 @@
 			"referenceName": "AzureDataLakeStorageConnect",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"fileName": {
+				"type": "string"
+			},
+			"folderName": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "cdc.json",
-				"folderPath": "DimArtist_cdc",
+				"fileName": {
+					"value": "@dataset().fileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@{dataset().folderName}_cdc",
+					"type": "Expression"
+				},
 				"fileSystem": "bronze"
 			}
 		},

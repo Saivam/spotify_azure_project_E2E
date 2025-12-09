@@ -122,7 +122,7 @@
 				}
 			},
 			{
-				"name": "If Condition1",
+				"name": "If incremental load",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
@@ -134,6 +134,10 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"expression": {
+						"value": "@activity('CopyDataSqlToLake').output",
+						"type": "Expression"
+					},
 					"ifTrueActivities": [
 						{
 							"name": "updateLast_cdc",

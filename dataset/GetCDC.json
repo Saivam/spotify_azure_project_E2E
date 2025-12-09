@@ -23,7 +23,7 @@
 					"type": "Expression"
 				},
 				"folderPath": {
-					"value": "'@{dataset().folderName}_cdc'",
+					"value": "@{dataset().folderName}_cdc",
 					"type": "Expression"
 				},
 				"fileSystem": "bronze"

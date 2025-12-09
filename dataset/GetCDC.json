@@ -1,0 +1,20 @@
+{
+	"name": "GetCDC",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorageConnect",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "cdc.json",
+				"folderPath": "DimArtist_cdc",
+				"fileSystem": "bronze"
+			}
+		},
+		"schema": {}
+	}
+}

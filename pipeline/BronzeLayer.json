@@ -31,7 +31,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"fileName": "cdc.json",
-							"folderName": "DimArtist_cdc"
+							"folderName": "DimArtist"
 						}
 					},
 					"firstRowOnly": true
@@ -180,7 +180,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"fileName": "empty.json",
-							"folderName": "DimArtist_cdc"
+							"folderName": "DimArtist"
 						}
 					}
 				],

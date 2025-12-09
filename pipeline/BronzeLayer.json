@@ -173,7 +173,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"fileName": "cdc.json",
-							"folderName": "DimArtist_cdc"
+							"folderName": "DimArtist"
 						}
 					}
 				]

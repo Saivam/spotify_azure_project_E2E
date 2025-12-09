@@ -19,7 +19,7 @@
 						"type": "JsonSource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
+							"recursive": false,
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -28,13 +28,19 @@
 					},
 					"dataset": {
 						"referenceName": "GetCDC",
-						"type": "DatasetReference"
-					}
+						"type": "DatasetReference",
+						"parameters": {
+							"fileName": "cdc.json"
+						}
+					},
+					"firstRowOnly": true
 				}
 			},
 			{
 				"name": "CopyDataSqlToLake",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Lookup",

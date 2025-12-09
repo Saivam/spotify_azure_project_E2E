@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "DimUser_cdc",
+				"folderPath": "DimArtist_cdc",
 				"fileSystem": "bronze"
 			},
 			"compressionCodec": "snappy"

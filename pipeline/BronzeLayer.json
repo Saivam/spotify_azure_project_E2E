@@ -141,9 +141,45 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@activity('CopyDataSqlToLake').output.dataWritten",
+						"value": "@activity('CopyDataSqlToLake').output.rowsCopied",
 						"type": "Expression"
 					},
+					"ifFalseActivities": [
+						{
+							"name": "DeleteEmptyFile",
+							"type": "Delete",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataset": {
+									"referenceName": "DestinationParquetFormat",
+									"type": "DatasetReference",
+									"parameters": {
+										"DestFileName": "@concat('DimArtist','_',variables('current'))"
+									}
+								},
+								"logStorageSettings": {
+									"linkedServiceName": {
+										"referenceName": "AzureDataLakeStorageConnect",
+										"type": "LinkedServiceReference"
+									}
+								},
+								"enableLogging": true,
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							}
+						}
+					],
 					"ifTrueActivities": [
 						{
 							"name": "updateLast_cdc",

@@ -8,6 +8,9 @@
 		"parameters": {
 			"DestFileName": {
 				"type": "String"
+			},
+			"DestFolderName": {
+				"type": "String"
 			}
 		},
 		"annotations": [],
@@ -19,7 +22,10 @@
 					"value": "@dataset().DestFileName",
 					"type": "Expression"
 				},
-				"folderPath": "DimArtist_cdc",
+				"folderPath": {
+					"value": "@{dataset().DestFolderName}_cdc",
+					"type": "Expression"
+				},
 				"fileSystem": "bronze"
 			},
 			"compressionCodec": "snappy"

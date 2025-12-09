@@ -260,7 +260,10 @@
 												"type": "DatasetReference",
 												"parameters": {
 													"fileName": "empty.json",
-													"folderName": "DimArtist"
+													"folderName": {
+														"value": "@item().table",
+														"type": "Expression"
+													}
 												}
 											}
 										],
@@ -270,7 +273,10 @@
 												"type": "DatasetReference",
 												"parameters": {
 													"fileName": "cdc.json",
-													"folderName": "DimArtist"
+													"folderName": {
+														"value": "@item().table",
+														"type": "Expression"
+													}
 												}
 											}
 										]

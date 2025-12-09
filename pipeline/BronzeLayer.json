@@ -120,6 +120,10 @@
 										"DestFileName": {
 											"value": "@concat(item().table,'_',variables('current'))",
 											"type": "Expression"
+										},
+										"DestFolderName": {
+											"value": "@item().table",
+											"type": "Expression"
 										}
 									}
 								}

@@ -61,7 +61,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * from dbo.DimUser where updated_at > '@{activity('Lookup').output.firstRow}'",
+							"value": "select * from dbo.DimArtist where updated_at > '@{activity('Lookup').output.firstRow}'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",

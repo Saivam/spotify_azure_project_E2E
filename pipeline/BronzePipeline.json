@@ -8,6 +8,10 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.loop_inputValue",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "AzureSqlToLake",
@@ -67,6 +71,14 @@
 				}
 			}
 		],
+		"parameters": {
+			"loop_input": {
+				"type": "String"
+			},
+			"loop_inputValue": {
+				"type": "Array"
+			}
+		},
 		"annotations": []
 	}
 }

@@ -100,7 +100,13 @@
 				"outputs": [
 					{
 						"referenceName": "DestinationParquetFormat",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"DestFileName": {
+								"value": "@concat('DimArtist','_',variables('current'))",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			},
@@ -135,7 +141,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@activity('CopyDataSqlToLake').output",
+						"value": "@activity('CopyDataSqlToLake').output.dataWritten",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [

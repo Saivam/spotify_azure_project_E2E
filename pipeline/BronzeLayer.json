@@ -3,11 +3,16 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "ForEach1",
+				"name": "ForEach",
 				"type": "ForEach",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.loop_input",
+						"type": "Expression"
+					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "Lookup",
@@ -38,7 +43,10 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"fileName": "cdc.json",
-										"folderName": "DimArtist"
+										"folderName": {
+											"value": "@item().table",
+											"type": "Expression"
+										}
 									}
 								},
 								"firstRowOnly": true
@@ -73,7 +81,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "select * from dbo.DimArtist where updated_at > '@{activity('Lookup').output.firstRow.cdc}'",
+										"value": "select * from @{item().schema}.@{item().table} where @{item().cdc_col} > '@{if(empty(item().from_date),activity('Lookup').output.firstRow.cdc,item().from_date)}'",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -110,7 +118,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"DestFileName": {
-											"value": "@concat('DimArtist','_',variables('current'))",
+											"value": "@concat(item().table,'_',variables('current'))",
 											"type": "Expression"
 										}
 									}
@@ -153,7 +161,7 @@
 								},
 								"ifFalseActivities": [
 									{
-										"name": "DeleteEmptyFile_copy1",
+										"name": "DeleteEmptyFile",
 										"type": "Delete",
 										"dependsOn": [],
 										"policy": {
@@ -169,7 +177,10 @@
 												"referenceName": "DestinationParquetFormat",
 												"type": "DatasetReference",
 												"parameters": {
-													"DestFileName": "@concat('DimArtist','_',variables('current'))"
+													"DestFileName": {
+														"value": "@concat(item().table,'_',variables('current'))",
+														"type": "Expression"
+													}
 												}
 											},
 											"logStorageSettings": {
@@ -189,11 +200,11 @@
 								],
 								"ifTrueActivities": [
 									{
-										"name": "updateLast_cdc_copy1",
+										"name": "updateLast_cdc",
 										"type": "Copy",
 										"dependsOn": [
 											{
-												"activity": "max_cdc_copy1",
+												"activity": "max_cdc",
 												"dependencyConditions": [
 													"Succeeded"
 												]
@@ -261,7 +272,7 @@
 										]
 									},
 									{
-										"name": "max_cdc_copy1",
+										"name": "max_cdc",
 										"type": "Script",
 										"dependsOn": [],
 										"policy": {
@@ -279,9 +290,16 @@
 										"typeProperties": {
 											"scripts": [
 												{
+													"parameters": [
+														{
+															"name": "schema",
+															"type": "String",
+															"value": ""
+														}
+													],
 													"type": "Query",
 													"text": {
-														"value": "select max(updated_at) as cdc from dbo.DimArtist",
+														"value": "select max(@{item().cdc_col}) as cdc from @{item().schema}.@{item().table}",
 														"type": "Expression"
 													}
 												}
@@ -296,6 +314,43 @@
 				}
 			}
 		],
+		"parameters": {
+			"loop_input": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"schema": "dbo",
+						"table": "DimUser",
+						"cdc_col": "updated_at",
+						"from_date": ""
+					},
+					{
+						"schema": "dbo",
+						"table": "DimTrack",
+						"cdc_col": "updated_at",
+						"from_date": ""
+					},
+					{
+						"schema": "dbo",
+						"table": "DimDate",
+						"cdc_col": "date",
+						"from_date": ""
+					},
+					{
+						"schema": "dbo",
+						"table": "DimArtist",
+						"cdc_col": "updated_at",
+						"from_date": ""
+					},
+					{
+						"schema": "dbo",
+						"table": "FactStream",
+						"cdc_col": "stream_timestamp",
+						"from_date": ""
+					}
+				]
+			}
+		},
 		"variables": {
 			"current": {
 				"type": "String"

@@ -30,7 +30,8 @@
 						"referenceName": "GetCDC",
 						"type": "DatasetReference",
 						"parameters": {
-							"fileName": "cdc.json"
+							"fileName": "cdc.json",
+							"folderName": "DimArtist_cdc"
 						}
 					},
 					"firstRowOnly": true
@@ -178,7 +179,8 @@
 						"referenceName": "GetCDC",
 						"type": "DatasetReference",
 						"parameters": {
-							"fileName": "empty.json"
+							"fileName": "empty.json",
+							"folderName": "DimArtist_cdc"
 						}
 					}
 				],

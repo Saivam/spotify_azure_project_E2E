@@ -1,0 +1,35 @@
+{
+	"name": "DestinationParquetFormat",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorageConnect",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"DestFileName": {
+				"type": "String"
+			},
+			"DestFolderName": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().DestFileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@{dataset().DestFolderName}_cdc",
+					"type": "Expression"
+				},
+				"fileSystem": "bronze"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

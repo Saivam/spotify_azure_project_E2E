@@ -2,7 +2,7 @@
 	"name": "AzureSqlData",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureSqlDatabaseConnection",
+			"referenceName": "AzureSqlDatabaseCoonect",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],

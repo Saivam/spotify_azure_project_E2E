@@ -115,7 +115,7 @@
 														"value": "@item().name",
 														"type": "Expression"
 													},
-													"folderName": "destination"
+													"folderName": "source"
 												}
 											}
 										],

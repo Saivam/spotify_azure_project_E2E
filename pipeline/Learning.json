@@ -125,10 +125,6 @@
 												"type": "DatasetReference",
 												"parameters": {
 													"containerName": "inputdata",
-													"fileName": {
-														"value": "@trim(' ')",
-														"type": "Expression"
-													},
 													"folderName": "destination"
 												}
 											}

@@ -30,6 +30,39 @@
 						"type": "DelimitedTextReadSettings"
 					}
 				}
+			},
+			{
+				"name": "ForEach",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Metadata').output['childitems']",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "check for the file name",
+							"type": "IfCondition",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@contains(item(),'Fact')",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
 			}
 		],
 		"annotations": []

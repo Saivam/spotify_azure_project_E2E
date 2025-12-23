@@ -61,9 +61,7 @@
 				"     payment == 'mastercard',",
 				"     disjoint: false) ~> split1@(visa, mastercard, amex)",
 				"split1@visa aggregate(groupBy(customer_id),",
-				"     product_id = max(product_id),",
-				"          payment = ERROR_FUNCTION(''),",
-				"          price = ERROR_FUNCTION('')) ~> aggregate",
+				"     product_id = max(product_id)) ~> aggregate",
 				"split1@amex derive(payment = coalesce(payment,'N/A')) ~> derivedColumn"
 			]
 		}

@@ -16,12 +16,8 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "CSVConnecter",
-						"type": "DatasetReference",
-						"parameters": {
-							"containerName": "inputdata",
-							"folderName": "source"
-						}
+						"referenceName": "SourceData",
+						"type": "DatasetReference"
 					},
 					"fieldList": [
 						"childItems"

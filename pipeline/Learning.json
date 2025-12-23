@@ -60,7 +60,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@contains(item(),'Fact')",
+									"value": "@contains(item().name,'Fact')",
 									"type": "Expression"
 								},
 								"ifTrueActivities": [
@@ -116,7 +116,7 @@
 												"parameters": {
 													"containerName": "inputdata",
 													"fileName": {
-														"value": "@item()",
+														"value": "@item().name",
 														"type": "Expression"
 													},
 													"folderName": "destination"
@@ -126,7 +126,15 @@
 										"outputs": [
 											{
 												"referenceName": "CSVConnecter",
-												"type": "DatasetReference"
+												"type": "DatasetReference",
+												"parameters": {
+													"containerName": "inputdata",
+													"fileName": {
+														"value": "@item().name",
+														"type": "Expression"
+													},
+													"folderName": "destination"
+												}
 											}
 										]
 									}

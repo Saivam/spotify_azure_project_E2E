@@ -1,19 +1,35 @@
 {
-	"name": "dataflow1",
+	"name": "dataflow",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "CSVConnecter",
+						"referenceName": "dataflow_source",
 						"type": "DatasetReference"
 					},
 					"name": "sourceCSV"
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "select1"
+				},
+				{
+					"name": "filterRows"
+				},
+				{
+					"name": "split1"
+				},
+				{
+					"name": "aggregate"
+				},
+				{
+					"name": "derivedColumn"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          transaction_id as string,",
@@ -29,7 +45,26 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> sourceCSV"
+				"     ignoreNoFilesFound: false) ~> sourceCSV",
+				"sourceCSV select(mapColumn(",
+				"          transaction_id,",
+				"          transactional_date,",
+				"          product_id,",
+				"          customer_id,",
+				"          payment,",
+				"          price",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 filter(notEquals(customer_id,'12')) ~> filterRows",
+				"filterRows split(payment == 'visa',",
+				"     payment == 'mastercard',",
+				"     disjoint: false) ~> split1@(visa, mastercard, amex)",
+				"split1@visa aggregate(groupBy(customer_id),",
+				"     product_id = max(product_id),",
+				"          payment = ERROR_FUNCTION(''),",
+				"          price = ERROR_FUNCTION('')) ~> aggregate",
+				"split1@amex derive(payment = coalesce(payment,'N/A')) ~> derivedColumn"
 			]
 		}
 	}
